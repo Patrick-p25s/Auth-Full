@@ -1,6 +1,6 @@
 import React from "react";
-import { citations } from "./data.js";
-import DisplayText from "./DisplayText";
+import { citations } from "../data.js";
+import DisplayText from "./DisplayText.jsx";
 
 export default function CitationGenerator({ children }) {
   const [index, setIndex] = React.useState(0);
