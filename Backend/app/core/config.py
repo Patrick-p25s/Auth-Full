@@ -1,4 +1,5 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 
 class Setting(BaseSettings):
@@ -7,8 +8,7 @@ class Setting(BaseSettings):
     EXPIRES_TOKEN: int
     SECRET_KEY: str
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 
 setting = Setting()
