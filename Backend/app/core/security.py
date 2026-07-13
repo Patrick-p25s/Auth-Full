@@ -8,4 +8,6 @@ def hash_password(plain: str) -> str:
 
 
 def check_password(plain: str, hashed: str) -> bool:
-    return bcrypt.checkpw(password=plain, hashed_password=hashed)
+    return bcrypt.checkpw(
+        password=plain.encode("utf-8"), hashed_password=hashed.encode("utf-8")
+    )
