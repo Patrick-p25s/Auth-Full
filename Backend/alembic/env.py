@@ -10,11 +10,14 @@ from alembic import context
 
 from app.core.database import Base
 from app.users.models import Users
+from app.Images.models import FileUpload
 
 config = context.config
 
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
 target_metadata = Base.metadata
 
 
