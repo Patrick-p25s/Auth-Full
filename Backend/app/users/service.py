@@ -35,4 +35,4 @@ class UserService:
 
         token = create_token({"sub": user.id})
 
-        return LoginOut(access_token=token, token_type="Barear")
+        return LoginOut(access_token=token, token_type="Bearer")

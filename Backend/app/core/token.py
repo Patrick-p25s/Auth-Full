@@ -27,7 +27,3 @@ def decode_token(token: str):
     except jwt.InvalidTokenError:
         print("Token Invalid")
         return None
-
-
-token = create_token({"id": 1, "name": "patrick"})
-payload = decode_token(token=token)
