@@ -1,10 +1,11 @@
 from app.core.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Integer, String, DateTime, Boolean, func, Enum
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Integer, String, DateTime, Boolean, func, Enum, ForeignKey
 from datetime import datetime
+import uuid
 from enum import Enum as PyEnum
 
-# C'est ici qu'on crée les tables et tous les relation (Models)
+from app.core.Model_base import IdTimeStamp
 
 
 class Category(str, PyEnum):
@@ -14,10 +15,12 @@ class Category(str, PyEnum):
     autre = "autre"
 
 
-class Taches(Base):
+class Taches(Base, IdTimeStamp):
     __tablename__ = "Tasks"
 
-    id: Mapped[int] = mapped_column(Integer, autoincrement=True, primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE")
+    )
     tache: Mapped[str] = mapped_column(String(250), nullable=False)
     category: Mapped[Category] = mapped_column(
         Enum(Category),
@@ -25,9 +28,5 @@ class Taches(Base):
         nullable=False,
     )
     is_completed: Mapped[bool] = mapped_column(Boolean, default=False)
-    create_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=func.now()
-    )
-    update_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=func.now(), onupdate=func.now()
-    )
+
+    owner: Mapped["Users"] = relationship(back_populates="taches", uselist=True)

@@ -33,6 +33,6 @@ class UserService:
                 status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
             )
 
-        token = create_token({"sub": user.id})
+        token = create_token({"sub": str(user.id)})
 
         return LoginOut(access_token=token, token_type="Bearer")

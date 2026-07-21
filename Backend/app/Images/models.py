@@ -6,7 +6,8 @@ from sqlalchemy import BigInteger, DateTime, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.core.database import Base  # adapte selon l'emplacement de ta Base
+from app.core.database import Base
+from app.core.Model_base import IdTimeStamp
 
 
 class FileCategory(str, Enum):
@@ -18,12 +19,8 @@ class FileCategory(str, Enum):
     OTHER = "other"
 
 
-class FileUpload(Base):
+class FileUpload(Base, IdTimeStamp):
     __tablename__ = "file_uploads"
-
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
-    )
     original_filename: Mapped[str] = mapped_column(nullable=False)
     stored_filename: Mapped[str] = mapped_column(nullable=False, unique=True)
     extension: Mapped[str] = mapped_column(nullable=False)
@@ -31,6 +28,3 @@ class FileUpload(Base):
     file_path: Mapped[str] = mapped_column(nullable=False)
     content_type: Mapped[str] = mapped_column(nullable=False)
     size_bytes: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
