@@ -23,8 +23,8 @@ export function useTodos() {
     fetchTasks();
   }, [fetchTasks]);
 
-  const addTask = async (data) => {
-    const newTask = await todoService.createTask(data);
+  const addTask = async ({ tache, category }) => {
+    const newTask = await todoService.createTask({ tache, category });
     setTasks((prev) => [...prev, newTask]);
   };
 
@@ -39,16 +39,18 @@ export function useTodos() {
   };
 
   const toggleFinish = async (id) => {
-    // optimistic update : on met à jour l'UI avant la réponse serveur
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, finished: !t.finished } : t)),
+      prev.map((t) =>
+        t.id === id ? { ...t, is_completed: !t.is_completed } : t,
+      ),
     );
     try {
       await todoService.finishTask(id);
     } catch {
-      // rollback si l'appel échoue
       setTasks((prev) =>
-        prev.map((t) => (t.id === id ? { ...t, finished: !t.finished } : t)),
+        prev.map((t) =>
+          t.id === id ? { ...t, is_completed: !t.is_completed } : t,
+        ),
       );
       setError("Impossible de mettre à jour la tâche");
     }

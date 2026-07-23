@@ -10,18 +10,25 @@ export const getTaskById = async (id) => {
   return response.data;
 };
 
-export const createTask = async (data) => {
-  const response = await apiClient.post("/task/create", data);
+// create_task attend tache + category en QUERY PARAMS, pas en JSON body
+export const createTask = async ({ tache, category }) => {
+  const response = await apiClient.post("/task/create", null, {
+    params: { tache, category },
+  });
   return response.data;
 };
 
-export const updateTask = async (id, data) => {
-  const response = await apiClient.put(`/task/update/${id}`, data);
+// update_task attend un JSON body classique
+export const updateTask = async (id, { tache, category }) => {
+  const response = await apiClient.put(`/task/update/${id}`, {
+    tache,
+    category,
+  });
   return response.data;
 };
 
 export const deleteTask = async (id) => {
-  await apiClient.delete(`/task/delete/${id}`);
+  await apiClient.delete(`/delete/${id}`);
 };
 
 export const finishTask = async (id) => {
