@@ -28,7 +28,7 @@ export const updateTask = async (id, { tache, category }) => {
 };
 
 export const deleteTask = async (id) => {
-  await apiClient.delete(`/delete/${id}`);
+  await apiClient.delete(`/task/delete/${id}`);
 };
 
 export const finishTask = async (id) => {

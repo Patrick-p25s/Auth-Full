@@ -34,7 +34,7 @@ async def get_task(
     service: TaskService = Depends(_get_service),
     user: UserOut = Depends(get_current_user),
 ):
-    print(user)
+    print(type(user.id), user.id)
     return await service.get_tache(id=id, user_id=user.id)
 
 

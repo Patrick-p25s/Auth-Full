@@ -35,6 +35,6 @@ class TaskRepository:
         await self.db.refresh(tache)
         return tache
 
-    async def get_all(self, user_id: UUID) -> list[TaskOut | None]:
-        stmt = await self.db.execute(select(Taches).where(user_id == user_id))
-        return stmt.scalars().all()
+    async def get_all(self, user_id: UUID) -> list[Taches]:
+        stmt = await self.db.execute(select(Taches).where(Taches.user_id == user_id))
+        return list(stmt.scalars().all())
