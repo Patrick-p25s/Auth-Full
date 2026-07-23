@@ -7,6 +7,7 @@ class Setting(BaseSettings):
     ALGORITHM: str
     EXPIRES_TOKEN: int
     SECRET_KEY: str
+    VITE_API_URL: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

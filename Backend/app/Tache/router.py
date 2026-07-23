@@ -22,7 +22,7 @@ router = APIRouter(prefix="/task", tags=["Tache manipulation"])
 @router.post("/create", response_model=TaskOut, summary="Créer un tache par un")
 async def create_task(
     tache: Annotated[TaskCreate, Query()],
-    service=Depends(_get_service),
+    service: TaskService = Depends(_get_service),
     user: UserOut = Depends(get_current_user),
 ) -> TaskOut:
     return await service.create_task(new_task=tache, user_id=user.id)
@@ -30,14 +30,17 @@ async def create_task(
 
 @router.get("/get/{id}", summary="Recupérér un tache par son id")
 async def get_task(
-    id: UUID, service=Depends(_get_service), user: UserOut = Depends(get_current_user)
+    id: UUID,
+    service: TaskService = Depends(_get_service),
+    user: UserOut = Depends(get_current_user),
 ):
     return await service.get_tache(id=id, user_id=user.id)
 
 
 @router.get("/get", summary="Recupérer tous les taches disponible")
 async def get_all(
-    service=Depends(_get_service), user: UserOut = Depends(get_current_user)
+    service: TaskService = Depends(_get_service),
+    user: UserOut = Depends(get_current_user),
 ):
     return await service.get_all(user_id=user.id)
 
@@ -46,7 +49,7 @@ async def get_all(
 async def update_task(
     id: UUID,
     task: TaskCreate,
-    service=Depends(_get_service),
+    service: TaskService = Depends(_get_service),
     user: UserOut = Depends(get_current_user),
 ):
     return await service.update_task(id=id, task=task, user_id=user.id)
@@ -54,13 +57,17 @@ async def update_task(
 
 @router.patch("/finish/{id}", summary="Finir ou refaire la tache par id")
 async def finished_toogle(
-    id: UUID, service=Depends(_get_service), user: UserOut = Depends(get_current_user)
+    id: UUID,
+    service: TaskService = Depends(_get_service),
+    user: UserOut = Depends(get_current_user),
 ):
     return await service.finish_toogle(id=id, user_id=user.id)
 
 
 @router.delete("/delete/{id}", summary="Supprimer un tache par son id")
 async def delete_task(
-    id: UUID, service=Depends(_get_service), user: UserOut = Depends(get_current_user)
+    id: UUID,
+    service: TaskService = Depends(_get_service),
+    user: UserOut = Depends(get_current_user),
 ):
     return await service.delete_tache(id=id, user_id=user.id)

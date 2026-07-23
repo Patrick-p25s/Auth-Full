@@ -29,4 +29,4 @@ async def login(
 
 @router.get("/me", response_model=UserOut)
 async def get_my_profile(user=Depends(get_current_user)):
-    return await user
+    return user
