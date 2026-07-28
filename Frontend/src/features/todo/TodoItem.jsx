@@ -5,7 +5,7 @@ const categoryStyles = {
   autre: "bg-slate-100 text-slate-700 border-slate-200",
 };
 
-export function TodoItem({ task, onToggle, onDelete }) {
+export function TodoItem({ task, onToggle, onDelete, onUpdate }) {
   const badgeStyle = categoryStyles[task.category] || categoryStyles.autre;
 
   return (
@@ -48,6 +48,13 @@ export function TodoItem({ task, onToggle, onDelete }) {
         title="Supprimer la tâche"
       >
         Supprimer
+      </button>
+      <button
+        onClick={() => onUpdate(task.id)}
+        className="text-xs text-slate-400 hover:text-green-600 hover:bg-gray-50 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer shrink-0"
+        title="Supprimer la tâche"
+      >
+        Modifier
       </button>
     </li>
   );

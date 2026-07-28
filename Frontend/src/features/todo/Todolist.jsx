@@ -3,8 +3,15 @@ import { TodoItem } from "./TodoItem";
 import { useTodos } from "./useTodo";
 
 export function TodoList() {
-  const { tasks, loading, error, addTask, removeTask, toggleFinish } =
-    useTodos();
+  const {
+    tasks,
+    loading,
+    error,
+    addTask,
+    removeTask,
+    toggleFinish,
+    updateTask,
+  } = useTodos();
 
   if (loading) return <p>Chargement des tâches...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -19,6 +26,7 @@ export function TodoList() {
             task={task}
             onToggle={toggleFinish}
             onDelete={removeTask}
+            onUpdate={updateTask}
           />
         ))}
       </ul>

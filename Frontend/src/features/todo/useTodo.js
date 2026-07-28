@@ -56,5 +56,18 @@ export function useTodos() {
     }
   };
 
-  return { tasks, loading, error, addTask, editTask, removeTask, toggleFinish };
+  const updateTask = async (id) => {
+    console.log("Update:  ", id);
+  };
+
+  return {
+    tasks,
+    loading,
+    error,
+    addTask,
+    editTask,
+    removeTask,
+    toggleFinish,
+    updateTask,
+  };
 }

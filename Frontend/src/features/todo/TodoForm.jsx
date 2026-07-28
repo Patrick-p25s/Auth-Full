@@ -6,6 +6,7 @@ export function TodoForm({ onAdd }) {
   const [tache, setTache] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModify, setModify] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
