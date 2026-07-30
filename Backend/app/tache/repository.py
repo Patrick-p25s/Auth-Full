@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.Tache.model import Taches
-from app.Tache.schemas import TaskOut
+from app.tache.model import Taches
+from app.tache.schemas import TaskOut
 from uuid import UUID
 
 # Manipulation directe des bases de donnée à appeler dans chaque service

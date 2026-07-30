@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db  # adapte selon ta dépendance de session
-from app.Images.repository import FileUploadRepository
-from app.Images.schema import FileUploadRead
-from app.Images.service import FileUploadService
+from app.images.repository import FileUploadRepository
+from app.images.schema import FileUploadRead
+from app.images.service import FileUploadService
 
 router = APIRouter(prefix="/files", tags=["files"])
 

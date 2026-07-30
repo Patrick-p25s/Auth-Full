@@ -3,8 +3,8 @@ from pathlib import Path
 
 from fastapi import HTTPException, UploadFile, status
 
-from app.Images.models import FileCategory, FileUpload
-from app.Images.repository import FileUploadRepository
+from app.images.models import FileCategory, FileUpload
+from app.images.repository import FileUploadRepository
 
 EXTENSION_MAP: dict[str, FileCategory] = {
     # Images

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.users.router import router as user_router
-from app.Images.router import router as image_router
-from app.Tache.router import router as task_router
+from app.images.router import router as image_router
+from app.tache.router import router as task_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

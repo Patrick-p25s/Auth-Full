@@ -10,8 +10,8 @@ from alembic import context
 
 from app.core.database import Base
 from app.users.models import Users
-from app.Images.models import FileUpload
-from app.Tache.model import Taches
+from app.images.models import FileUpload
+from app.tache.model import Taches
 
 config = context.config
 

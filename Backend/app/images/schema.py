@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
-from app.Images.models import FileCategory
+from app.images.models import FileCategory
 
 
 class FileUploadRead(BaseModel):

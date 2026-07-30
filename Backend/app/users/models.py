@@ -1,5 +1,5 @@
 from app.core.database import Base
-from app.core.Model_base import IdTimeStamp
+from Backend.app.core.base_model import IdTimeStamp
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, DateTime, Uuid, func, text
 from datetime import datetime

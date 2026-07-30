@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from app.Tache.model import Category
+from app.tache.model import Category
 from uuid import UUID
 
 # Tous ce qui est validation des données entrée par l'utilisateur

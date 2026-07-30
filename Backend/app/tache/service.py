@@ -1,5 +1,5 @@
-from app.Tache.schemas import TaskCreate, TaskOut
-from app.Tache.repository import TaskRepository
+from app.tache.schemas import TaskCreate, TaskOut
+from app.tache.repository import TaskRepository
 
 from fastapi import HTTPException, status
 from uuid import UUID

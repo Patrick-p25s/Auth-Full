@@ -26,3 +26,5 @@ dist-ssr
 __pycache__
 __init__.py
 .venv
+
+*.db

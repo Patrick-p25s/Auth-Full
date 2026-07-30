@@ -5,7 +5,7 @@ from datetime import datetime
 import uuid
 from enum import Enum as PyEnum
 
-from app.core.Model_base import IdTimeStamp
+from Backend.app.core.base_model import IdTimeStamp
 
 
 class Category(str, PyEnum):

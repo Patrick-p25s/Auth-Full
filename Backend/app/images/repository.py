@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.Images.models import FileUpload
+from app.images.models import FileUpload
 
 
 class FileUploadRepository:
