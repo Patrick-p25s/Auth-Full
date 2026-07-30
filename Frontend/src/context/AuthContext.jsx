@@ -1,25 +1,25 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
+  getCurrentUser,
   login as loginApi,
   register as registerApi,
-  getCurrentUser,
-} from "../../services/authService";
+} from "../api/authService";
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // évite un flash "non connecté" au démarrage
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initAuth = async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("TOKEN");
       if (token) {
         try {
           const currentUser = await getCurrentUser();
           setUser(currentUser);
         } catch {
-          localStorage.removeItem("token"); // token invalide/expiré
+          localStorage.removeItem("TOKEN");
         }
       }
       setLoading(false);
@@ -29,19 +29,19 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const data = await loginApi(email, password);
-    localStorage.setItem("token", data.access_token);
+    localStorage.setItem("TOKEN", data.access_token);
+
     const currentUser = await getCurrentUser();
     setUser(currentUser);
   };
 
   const register = async (userData) => {
     await registerApi(userData);
-    // optionnel : connecter automatiquement après inscription
     await login(userData.email, userData.password);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("TOKEN");
     setUser(null);
   };
 
@@ -49,10 +49,9 @@ export function AuthProvider({ children }) {
     user,
     isAuthenticated: !!user,
     loading,
-    login,
     register,
+    login,
     logout,
   };
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -1,34 +1,29 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./features/auth/authContext";
-import { MainLayout } from "./layouts/MainLayout";
-import { ProtectedRoute } from "./route/ProtectedRoute";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboad";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Home from "./page/Home";
+import Login from "./page/Login";
+import ProtecteRoute from "./route/ProtectedRoute";
+import Dashboard from "./page/Dashboard";
+import Register from "./page/Register";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtecteRoute>
+                <Dashboard />
+              </ProtecteRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
   );
 }
-
-export default App;

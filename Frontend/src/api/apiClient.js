@@ -1,27 +1,24 @@
 import axios from "axios";
-
 const apiClient = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
-// Intercepteur : ajoute automatiquement le token à chaque requête
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("TOKEN");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Intercepteur : si le token est invalide/expiré, on déconnecte
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("TOKEN");
       window.location.href = "/login";
     }
     return Promise.reject(error);
