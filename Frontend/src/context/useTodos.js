@@ -3,7 +3,7 @@ import {
   getAllTasks,
   getTaskById,
   createTask,
-  updateTask,
+  updateTask as taskUpdate,
   deleteTask,
   toggleFinish,
 } from "../api/todoService";
@@ -44,8 +44,26 @@ export function useTodos() {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const updateTask = async (id, taskData) => {
+    try {
+      await taskUpdate(id, taskData);
+      const newCategory = taskData.category;
+      const newTask = taskData.tache;
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === id
+            ? { ...task, tache: newTask, category: newCategory }
+            : task,
+        ),
+      );
+    } catch (e) {
+      console.log(e);
+      setErreur("Erreur lors de modification ");
+    }
+  };
+
   const finishToogle = async (id) => {
-    // 1. Mise à jour optimiste du state (React interface)
+    // 1. Mise à jour optimiste du state (ReacReactt interface)
     setTasks((prev) =>
       prev.map((t) =>
         t.id === id ? { ...t, is_completed: !t.is_completed } : t,
@@ -66,5 +84,13 @@ export function useTodos() {
     }
   };
 
-  return { tasks, loading, erreur, addTask, removeTask, finishToogle };
+  return {
+    tasks,
+    loading,
+    erreur,
+    addTask,
+    removeTask,
+    finishToogle,
+    updateTask,
+  };
 }

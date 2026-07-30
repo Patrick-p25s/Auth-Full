@@ -1,44 +1,79 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const CATEGORY = ["perso", "pro", "groupe"];
+const CATEGORIES = ["perso", "pro", "groupe"];
 
-export default function TodoForm({ onAdd }) {
+export default function TodoForm({
+  onAdd,
+  onUpdate,
+  taskToEdit,
+  onCancelEdit,
+}) {
   const [tache, setTache] = useState("");
-  const [category, setCategory] = useState(CATEGORY[0]);
+  const [category, setCategory] = useState(CATEGORIES[0]);
+
+  useEffect(() => {
+    if (taskToEdit) {
+      setTache(taskToEdit.tache);
+      setCategory(taskToEdit.category);
+    } else {
+      resetForm();
+    }
+  }, [taskToEdit]);
+
+  const resetForm = () => {
+    setTache("");
+    setCategory(CATEGORIES[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (tache.trim().length <= 3) {
-      return;
+
+    if (tache.trim().length <= 3) return;
+
+    if (taskToEdit) {
+      await onUpdate(taskToEdit.id, { tache: tache.trim(), category });
+    } else {
+      await onAdd({ tache: tache.trim(), category });
     }
-    console.log("Patrick");
-    await onAdd({ tache, category });
-    setTache("");
+
+    resetForm();
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="tache">Le tache ici</label>
+        <label htmlFor="tache">La tâche ici :</label>
         <input
           id="tache"
           type="text"
           value={tache}
-          onChange={(e) => {
-            setTache(e.target.value);
-          }}
+          onChange={(e) => setTache(e.target.value)}
+          placeholder="Ex: Faire les courses"
         />
       </div>
+
       <div>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {CATEGORY.map((cat) => (
+        <label htmlFor="category">Catégorie :</label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {CATEGORIES.map((cat) => (
             <option value={cat} key={cat}>
               {cat}
             </option>
           ))}
         </select>
       </div>
-      <button type="submit">Add tache</button>
+
+      <button type="submit">{taskToEdit ? "Modifier" : "Ajouter"}</button>
+
+      {taskToEdit && (
+        <button type="button" onClick={onCancelEdit}>
+          Annuler
+        </button>
+      )}
     </form>
   );
 }
