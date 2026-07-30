@@ -1,3 +1,10 @@
+import TodoList from "../components/TodoList";
+
 export default function Dashboard() {
-  return <h1>Bienvenue dans mon dashboard</h1>;
+  return (
+    <div>
+      <h1>Bienvenue dans la dashaboard</h1>
+      <TodoList />
+    </div>
+  );
 }
